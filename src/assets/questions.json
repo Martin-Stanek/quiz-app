@@ -1,0 +1,37 @@
+[
+  {
+    "question": "What is the capital of France?",
+    "answers": [
+      { "option": "Berlin", "isCorrect": false },
+      { "option": "Paris", "isCorrect": true }
+    ]
+  },
+  {
+    "question": "Which programming language is used for web development?",
+    "answers": [
+      { "option": "Java", "isCorrect": false },
+      { "option": "JavaScript", "isCorrect": true }
+    ]
+  },
+  {
+    "question": "Which planet is known as the Red Planet?",
+    "answers": [
+      { "option": "Earth", "isCorrect": false },
+      { "option": "Mars", "isCorrect": true }
+    ]
+  },
+  {
+    "question": "Who wrote 'Romeo and Juliet'?",
+    "answers": [
+      { "option": "Charles Dickens", "isCorrect": false },
+      { "option": "William Shakespeare", "isCorrect": true }
+    ]
+  },
+  {
+    "question": "What is the largest ocean on Earth?",
+    "answers": [
+      { "option": "Atlantic Ocean", "isCorrect": false },
+      { "option": "Pacific Ocean", "isCorrect": true }
+    ]
+  }
+]
