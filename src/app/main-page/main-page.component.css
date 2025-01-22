@@ -1,0 +1,25 @@
+.quiz-title {
+  font-size: 36px;
+  color: #4caf50;
+  margin-bottom: 20px;
+}
+.quiz-button {
+  background-color: #4caf50;
+  color: white;
+  font-size: 18px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.quiz-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.quiz-button:active {
+  background-color: #3e8e41;
+  transform: scale(1);
+}
