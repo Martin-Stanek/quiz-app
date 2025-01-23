@@ -2,6 +2,9 @@
 <div class="quiz-container">
   <h1 class="question">{{ currentQuestion.question }}</h1>
 
+  <app-quiz-timer/>
+  <app-quiz-timer (timeLeftChanged)="onTimeLeftChanged($event)"/>
+
   <div class="timer">
     <p>Time left: {{ timeLeft }} seconds</p>
   </div>
