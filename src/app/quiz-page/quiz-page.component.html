@@ -1,4 +1,22 @@
-<p>Question:</p>
-<p>Seconds: {{timervalue}}</p>
+@if (currentQuestion) {
+<div class="quiz-container">
+  <h1 class="question">{{ currentQuestion.question }}</h1>
 
-<p>{{questions}}</p>
+  <div class="timer">
+    <p>Time left: {{ timeLeft }} seconds</p>
+  </div>
+
+  <div class="options">
+    @for (option of currentQuestion.options; track option) {
+    <button class="option-button" (click)="answerSelected(option)">
+      {{ option }}
+    </button>
+    }
+  </div>
+
+  <div class="controls">
+    <button class="help-button" (click)="useHelp()">Help</button>
+    <button class="submit-button" (click)="submitAnswer()">Submit</button>
+  </div>
+</div>
+}

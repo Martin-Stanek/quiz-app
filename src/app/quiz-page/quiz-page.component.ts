@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject} from '@angular/core';
 import { interval } from 'rxjs';
+import { Question } from '../models/question.model';
 
 @Component({
   selector: 'app-quiz-page',
@@ -12,20 +13,23 @@ import { interval } from 'rxjs';
 export class QuizPageComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private httpClient = inject(HttpClient);
-  timervalue: number = 0;
-  questions: any;
-
+  timeLeft: number = 0;
+  questions: Question[] = [];
+  currentIndex=0;
+  currentQuestion: Question | undefined;
+  
   ngOnInit(): void {
     this.loadQuestion();
     this.startInterval();
   }
   loadQuestion(){
     const subscription = this.httpClient
-    .get('assets/questions.json')
+    .get<Question[]>('assets/questions.json')
     .subscribe({
       next: (resData) => {
         this.questions = resData;
-      }
+        this.currentQuestion = this.questions[this.currentIndex];
+      },
     });
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
@@ -35,9 +39,8 @@ export class QuizPageComponent implements OnInit {
   startInterval() {
     const subscription = interval(1000).subscribe({
       next: (val) => {
-        this.timervalue = val;
-        if (this.timervalue >= 5) {
-          console.log('>5!!!');
+        this.timeLeft = val;
+        if (this.timeLeft >= 60) {
         }
       },
     });
@@ -45,4 +48,14 @@ export class QuizPageComponent implements OnInit {
       subscription.unsubscribe();
     });
   }
+  answerSelected(option: any ){
+
+  }
+  useHelp(){
+
+  }
+  submitAnswer(){
+
+  }
+
 }
