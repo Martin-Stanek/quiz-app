@@ -4,11 +4,10 @@ import { Question } from '../models/question.model';
 import { QuizTimerComponent } from "../quiz-timer/quiz-timer.component";
 
 @Component({
-  selector: 'app-quiz-page',
-  standalone: true,
-  imports: [QuizTimerComponent],
-  templateUrl: './quiz-page.component.html',
-  styleUrl: './quiz-page.component.css',
+    selector: 'app-quiz-page',
+    imports: [QuizTimerComponent],
+    templateUrl: './quiz-page.component.html',
+    styleUrl: './quiz-page.component.css'
 })
 export class QuizPageComponent implements OnInit {
   private destroyRef = inject(DestroyRef);

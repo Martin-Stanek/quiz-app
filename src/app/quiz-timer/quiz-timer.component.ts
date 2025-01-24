@@ -11,11 +11,10 @@ import {
 import { interval, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-quiz-timer',
-  standalone: true,
-  imports: [],
-  templateUrl: './quiz-timer.component.html',
-  styleUrl: './quiz-timer.component.css',
+    selector: 'app-quiz-timer',
+    imports: [],
+    templateUrl: './quiz-timer.component.html',
+    styleUrl: './quiz-timer.component.css'
 })
 export class QuizTimerComponent implements OnInit {
   timeLeft = 20;
