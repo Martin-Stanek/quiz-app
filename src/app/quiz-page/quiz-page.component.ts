@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, DestroyRef, OnInit, inject} from '@angular/core';
-import { interval } from 'rxjs';
 import { Question } from '../models/question.model';
 import { QuizTimerComponent } from "../quiz-timer/quiz-timer.component";
 
@@ -14,11 +13,12 @@ import { QuizTimerComponent } from "../quiz-timer/quiz-timer.component";
 export class QuizPageComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private httpClient = inject(HttpClient);
-  timeLeft: number = 20;
+  timerDuration: number = 20;
   questions: Question[] = [];
   currentIndex=0;
+  quizFinished: boolean = false;
+  resetTimer: boolean = false;
   currentQuestion: Question | undefined;
-
   ngOnInit(): void {
     this.loadQuestion();
   }
@@ -35,12 +35,6 @@ export class QuizPageComponent implements OnInit {
       subscription.unsubscribe();
     });
   }
-  onTimeLeftChanged(newTime: number): void {
-    this.timeLeft = newTime; 
-    if(this.timeLeft==0){
-      this.resetQuiz();
-    }
-  }
   answerSelected(option: any ){
 
   }
@@ -50,7 +44,12 @@ export class QuizPageComponent implements OnInit {
   submitAnswer(){
 
   }
-  resetQuiz(){
-    
+  restartQuiz(){
+    this.quizFinished = false;
+    this.resetTimer = true;
+  }
+  handleTimerFinished(): void {
+    alert('Time is up!');
+    this.quizFinished = true;
   }
 }

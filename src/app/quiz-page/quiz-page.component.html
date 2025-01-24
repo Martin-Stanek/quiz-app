@@ -2,11 +2,11 @@
 <div class="quiz-container">
   <h1 class="question">{{ currentQuestion.question }}</h1>
 
-  <app-quiz-timer/>
-  <app-quiz-timer (timeLeftChanged)="onTimeLeftChanged($event)"/>
-
-  <div class="timer">
-    <p>Time left: {{ timeLeft }} seconds</p>
+  <div>
+    <app-quiz-timer
+    [resetTimerFlag]="resetTimer"
+    (timerFinished)="handleTimerFinished()"
+    />
   </div>
 
   <div class="options">
@@ -20,6 +20,13 @@
   <div class="controls">
     <button class="help-button" (click)="useHelp()">Help</button>
     <button class="submit-button" (click)="submitAnswer()">Submit</button>
+  </div>
+
+  <div>
+    @if (quizFinished) {
+    <h2>Quiz Finished!</h2>
+    <button (click)="restartQuiz()">Restart Quiz</button>
+    }
   </div>
 </div>
 }
