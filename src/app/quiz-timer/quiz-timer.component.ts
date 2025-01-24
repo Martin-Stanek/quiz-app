@@ -3,42 +3,49 @@ import {
   DestroyRef,
   inject,
   OnInit,
-  input,
   output,
-  ɵINPUT_SIGNAL_BRAND_WRITE_TYPE,
-  effect,
+  Input,
+  SimpleChanges,
 } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 
 @Component({
-    selector: 'app-quiz-timer',
-    imports: [],
-    templateUrl: './quiz-timer.component.html',
-    styleUrl: './quiz-timer.component.css'
+  selector: 'app-quiz-timer',
+  standalone: true,
+  imports: [],
+  templateUrl: './quiz-timer.component.html',
+  styleUrl: './quiz-timer.component.css',
 })
 export class QuizTimerComponent implements OnInit {
   timeLeft = 20;
   timerSubscription: Subscription | null = null;
-  resetTimerFlag = input<boolean>(false);
+  @Input({ required: true }) resetTimerFlag: boolean = false;
+  @Input() stopTimerFlag: boolean = false;
+  //resetTimerFlag = input<boolean>(false);
   timerFinished = output();
-  reset = this.startTimer();
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.startTimer();
-    effect(() => {
-      if (this.resetTimerFlag()) {
+    /*effect(() => {
+      if (this.resetTimerFlag) {
+        this.resetTimerFlag = false;
         this.resetTimer();
-        this.resetTimerFlag.set(false);
       }
-    });
-
+    });*/
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['resetTimerFlag']?.currentValue == true) {
+      this.resetTimer();
+    }
+    if(changes['stopTimerFlag']?.currentValue == true){
+      console.log('STOP TIMER FLAG TRUE DELETE ME');
+    }
+  }
 
   startTimer() {
     this.stopTimer();
-    this.timeLeft = 20;
     this.timerSubscription = interval(1000).subscribe({
       next: (val) => {
         if (this.timeLeft == 0) {
@@ -46,7 +53,6 @@ export class QuizTimerComponent implements OnInit {
           this.timerFinished.emit();
         } else {
           this.timeLeft--;
-          this.timeLeft = 1;
         }
       },
     });
@@ -57,13 +63,15 @@ export class QuizTimerComponent implements OnInit {
 
   private resetTimer(): void {
     this.stopTimer();
+    this.resetTimerFlag=false;
+    this.timeLeft = 20;
     this.startTimer();
   }
 
   stopTimer() {
-    if(this.timerSubscription){
-    this.timerSubscription.unsubscribe();
-    this.timerSubscription = null;
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+      this.timerSubscription = null;
     }
   }
 }

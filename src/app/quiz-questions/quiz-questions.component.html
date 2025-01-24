@@ -1,0 +1,30 @@
+@if (currentQuestion) {
+<div class="quiz-container">
+  @if(!finished){
+  <h1 class="question">{{ currentQuestion.question }}</h1>
+
+  <div class="options">
+    @for (option of currentQuestion.options; track option) {
+    <button class="option-button" (click)="answerSelected(option)">
+      {{ option }}
+    </button>
+    }
+  </div>
+  <div class="controls">
+    <button class="help-button" (click)="useHelp()">Help</button>
+    <button class="submit-button" (click)="submitAnswer()">Submit</button>
+  </div>
+  } @if(answer==true){
+  <div>
+    <p>Correct Answer</p>
+    <button class="nextQuestion-button" (click)="nextQuestion()">
+      Next Question
+    </button>
+  </div>
+  } @else if(answer==false) {
+  <div>
+    <p>Wrong Answer</p>
+  </div>
+  }
+</div>
+}

@@ -1,32 +1,21 @@
-@if (currentQuestion) {
 <div class="quiz-container">
-  <h1 class="question">{{ currentQuestion.question }}</h1>
 
   <div>
     <app-quiz-timer
     [resetTimerFlag]="resetTimer"
-    (timerFinished)="handleTimerFinished()"
+    [stopTimerFlag]="quizFinished"
+    (timerFinished)="handleQuizFinished()"
     />
   </div>
-
-  <div class="options">
-    @for (option of currentQuestion.options; track option) {
-    <button class="option-button" (click)="answerSelected(option)">
-      {{ option }}
-    </button>
-    }
-  </div>
-
-  <div class="controls">
-    <button class="help-button" (click)="useHelp()">Help</button>
-    <button class="submit-button" (click)="submitAnswer()">Submit</button>
-  </div>
-
+  <app-quiz-questions
+  (quizFinished)="handleQuizFinished()"
+  
+  [restartQuiz]="resetQuestions"
+  />
   <div>
     @if (quizFinished) {
     <h2>Quiz Finished!</h2>
-    <button (click)="restartQuiz()">Restart Quiz</button>
+    <button class="restart-button" (click)="restartQuiz()" >Restart Quiz</button>
     }
   </div>
 </div>
-}
