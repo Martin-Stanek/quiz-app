@@ -6,6 +6,8 @@ import {
   output,
   Input,
   SimpleChanges,
+  effect,
+  input,
 } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 
@@ -19,29 +21,20 @@ import { interval, Subscription } from 'rxjs';
 export class QuizTimerComponent implements OnInit {
   timeLeft = 20;
   timerSubscription: Subscription | null = null;
-  @Input({ required: true }) resetTimerFlag: boolean = false;
-  @Input() stopTimerFlag: boolean = false;
-  //resetTimerFlag = input<boolean>(false);
+  stopTimerFlag = input<boolean>(false);
+  resetTimerFlag = input<boolean>(false);
   timerFinished = output();
   private destroyRef = inject(DestroyRef);
 
-  ngOnInit(): void {
-    this.startTimer();
-    /*effect(() => {
-      if (this.resetTimerFlag) {
-        this.resetTimerFlag = false;
+  constructor(){
+    effect(() => {
+      if (this.resetTimerFlag()) {
         this.resetTimer();
       }
-    });*/
+    });
   }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['resetTimerFlag']?.currentValue == true) {
-      this.resetTimer();
-    }
-    if(changes['stopTimerFlag']?.currentValue == true){
-      console.log('STOP TIMER FLAG TRUE DELETE ME');
-    }
+  ngOnInit(): void {
+    this.startTimer();
   }
 
   startTimer() {
@@ -63,7 +56,6 @@ export class QuizTimerComponent implements OnInit {
 
   private resetTimer(): void {
     this.stopTimer();
-    this.resetTimerFlag=false;
     this.timeLeft = 20;
     this.startTimer();
   }

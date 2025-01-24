@@ -10,7 +10,6 @@ import { QuizQuestionsComponent } from '../quiz-questions/quiz-questions.compone
     styleUrl: './quiz-page.component.css'
 })
 export class QuizPageComponent {
-  timerDuration: number = 20;
   quizFinished: boolean = false;
   resetTimer: boolean = false;
   resetQuestions: boolean = false;
