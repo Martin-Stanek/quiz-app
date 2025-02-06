@@ -1,0 +1,8 @@
+<h2>{{ currentQuestion()?.question }}</h2>
+<div class="options">
+  @for (option of currentQuestion()?.options; track option) {
+  <button class="option-button" (click)="selectAnswer(option)">
+    {{ option }}
+  </button>
+  }
+</div>

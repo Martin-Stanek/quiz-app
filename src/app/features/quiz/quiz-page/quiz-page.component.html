@@ -1,0 +1,50 @@
+<div class="quiz-container">
+  @if (!quizStateService.quizCompleted() && !quizStateService.failed() &&
+  !quizStateService.showCorrectAnswer() && timerService.timeLeft() > 0) {
+  <app-quiz-timer />
+  <app-quiz-questions
+    [currentQuestion]="questionService.currentQuestion()"
+    (answerSelected)="quizStateService.selectedAnswer.set($event)"
+  />
+  <div class="action-buttons">
+    <app-help-button />
+    <app-submit-button
+      [disabled]="!quizStateService.selectedAnswer()"
+      (submitAction)="
+        questionService.checkAnswer(quizStateService.selectedAnswer()!)
+      "
+    />
+  </div>
+  } @if (timerService.timeLeft() === 0) { 
+    <div class="failure">
+      <h2>Times up!</h2>
+      <app-restart-button (click)="restart()" />
+    </div>
+  } @if (quizStateService.failed()) {
+  <div class="failure">
+    <h2>Wrong Answer!</h2>
+    <app-restart-button (click)="restart()" />
+  </div>
+  } @if (quizStateService.quizCompleted()) {
+  <div class="success">
+    <h2>Quiz Completed!</h2>
+    <app-restart-button (click)="restart()" />
+  </div>
+  } @if (quizStateService.showCorrectAnswer()) {
+  <div class="success">
+    <h2>Correct!</h2>
+    <p>Well done! That's the right answer.</p>
+    @if (questionService.hasNextQuestion()) {
+    <app-continue-button
+      (click)="questionService.nextQuestion(); timerService.reset()"
+    />
+    } @else {
+    <h2>
+      Congratulations <br />
+      you have finished the quiz!
+    </h2>
+    <app-restart-button (restart)="restart()" />
+    }
+  </div>
+  }
+</div>
