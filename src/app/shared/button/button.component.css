@@ -1,0 +1,11 @@
+:host(.restart-button) button {
+  background-color: rgb(231, 47, 47);
+}
+
+:host(.restart-button) button:hover {
+  background-color: red;
+}
+
+:host(.restart-button) button:active {
+  background-color: rgb(209, 2, 2);
+}
